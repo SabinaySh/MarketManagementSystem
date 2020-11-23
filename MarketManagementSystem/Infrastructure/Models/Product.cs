@@ -11,6 +11,6 @@ namespace MarketManagementSystem.Infrastructure.Models
         public double Price { get; set; }
         public Category Category { get; set; }
         public int Quantity { get; set; }
-        public int Code { get; set; }
+        public string Code { get; set; }
     }
 }

@@ -1,24 +1,37 @@
-﻿using MarketManagementSystem.Infrastructure.Models;
+﻿using MarketManagementSystem.Infrastructure.Enums;
+using MarketManagementSystem.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MarketManagementSystem.Infrastructure.Interfaces
 {
-   public class IMarketable
+   public interface IMarketable
     {
+
+        #region Sale
+
         List<Sale> Sales { get; }
-        List<Product> Product { get; }
         void AddSale(Dictionary<string, int> ProductFromSale);
-        void RemoveSaleByIndex(int index);
-        void RemoveTotalSaleByIndex(int index);
-        List<Sale> Date(DateTime startDate, DateTime endDate);
-        List<Sale> Date(DateTime date);
-        List<Sale> Amount(double startAmount, double endAmount);
+        void CancelProductFromSale(int saleNumber, string productCode, int quantity);
+        List<Sale> GetTotalSales();
+        List<Sale> GetSalesByDateRange(DateTime startDate, DateTime endDate);
+        List<Sale> GetSalesByDate(DateTime date);
+        List<Sale> GetSalesByRangeAmount(double startAmount, double endAmount);
+        Sale GetSalesByNumber(int number);
+
+        #endregion
+
+        #region Product
+
+        List<Product> Products { get; }
         void AddProduct();
-        List<Product> Category(Enums.Category category);
-        List<Product> Price(double startPrice, double endPrice);
-        List<Product> Search(Product Name);
+        void FindNameNumberAmountCategoryOfTheProduct(string name, int quantity, double price, Category category, string code);
+        List<Product> GetProductsByCategory(Category category);
+        List<Product> GetProductsByRangePrice(double startPrice, double endPrice);
+        List<Product> GetProductsSearchByName(string name);
+
+        #endregion
 
     }
 }
