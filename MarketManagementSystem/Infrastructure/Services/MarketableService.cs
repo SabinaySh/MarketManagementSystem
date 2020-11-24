@@ -3,19 +3,22 @@ using MarketManagementSystem.Infrastructure.Interfaces;
 using MarketManagementSystem.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MarketManagementSystem.Infrastructure.Services
 {
     public class MarketableService : IMarketable
     {
-        public List<Sale> Sales => throw new NotImplementedException();
+        private List<Sale> _sales;
+        public List<Sale> Sales => _sales;
 
-        public List<Product> Products => throw new NotImplementedException();
+        private List<Product> _products;
+        public List<Product> Products => _products;
 
-        public void AddProduct()
+        public void AddProduct(Product product)
         {
-            throw new NotImplementedException();
+            _products.Add(product);
         }
 
         public void AddSale(Dictionary<string, int> ProductFromSale)
@@ -35,27 +38,27 @@ namespace MarketManagementSystem.Infrastructure.Services
 
         public List<Product> GetProductsByCategory(Category category)
         {
-            throw new NotImplementedException();
+            return _products.Where(s => s.Category == category).ToList();
         }
 
         public List<Product> GetProductsByRangePrice(double startPrice, double endPrice)
         {
-            throw new NotImplementedException();
+            return _products.Where(s => s.Price >= startPrice && s.Price <= endPrice).ToList();
         }
 
         public List<Product> GetProductsSearchByName(string name)
         {
-            throw new NotImplementedException();
+            return _products.Where(s=>s.Name.Contains(name)).ToList();
         }
 
         public List<Sale> GetSalesByDate(DateTime date)
         {
-            throw new NotImplementedException();
+            return _sales.Where(s => s.Date == date).ToList();
         }
 
         public List<Sale> GetSalesByDateRange(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            return _sales.Where(s => s.Date >= startDate && s.Date <= endDate).ToList();
         }
 
         public Sale GetSalesByNumber(int number)
@@ -65,7 +68,7 @@ namespace MarketManagementSystem.Infrastructure.Services
 
         public List<Sale> GetSalesByRangeAmount(double startAmount, double endAmount)
         {
-            throw new NotImplementedException();
+            return _sales.Where(s => s.Amount >= startAmount && s.Amount <= endAmount).ToList();
         }
 
         public List<Sale> GetTotalSales()

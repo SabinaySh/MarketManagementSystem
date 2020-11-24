@@ -25,7 +25,7 @@ namespace MarketManagementSystem.Infrastructure.Interfaces
         #region Product
 
         List<Product> Products { get; }
-        void AddProduct();
+        void AddProduct(Product product);
         void FindNameNumberAmountCategoryOfTheProduct(string name, int quantity, double price, Category category, string code);
         List<Product> GetProductsByCategory(Category category);
         List<Product> GetProductsByRangePrice(double startPrice, double endPrice);
