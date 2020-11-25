@@ -12,13 +12,14 @@ namespace MarketManagementSystem.Infrastructure.Interfaces
         #region Sale
 
         List<Sale> Sales { get; }
-        void AddSale(Dictionary<string, int> ProductFromSale);
-        void CancelProductFromSale(int saleNumber, string productCode, int quantity);
+        void AddSale(Sale sale);
+      
         List<Sale> GetTotalSales();
         List<Sale> GetSalesByDateRange(DateTime startDate, DateTime endDate);
         List<Sale> GetSalesByDate(DateTime date);
         List<Sale> GetSalesByRangeAmount(double startAmount, double endAmount);
         Sale GetSalesByNumber(int number);
+        
 
         #endregion
 
@@ -26,10 +27,15 @@ namespace MarketManagementSystem.Infrastructure.Interfaces
 
         List<Product> Products { get; }
         void AddProduct(Product product);
+        List<Product> CancelProductFromSale(string productCode);
+        void RemoveProduct(string code);
         void FindNameNumberAmountCategoryOfTheProduct(string name, int quantity, double price, Category category, string code);
-        List<Product> GetProductsByCategory(Category category);
+        void GetProductsByCategory(Category category);
         List<Product> GetProductsByRangePrice(double startPrice, double endPrice);
         List<Product> GetProductsSearchByName(string name);
+        
+
+      
 
         #endregion
 
