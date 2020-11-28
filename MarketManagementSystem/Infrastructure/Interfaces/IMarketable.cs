@@ -12,8 +12,9 @@ namespace MarketManagementSystem.Infrastructure.Interfaces
         #region Sale
 
         List<Sale> Sales { get; }
-        void AddSale(Sale sale);
+        void AddSale(int productCode, int productQuantity);
 
+        void RemoveSoldProduct(int saleNumber,string productCode,int productQuantity);
         void RemoveSalesByNumber(int number);
         List<Sale> GetSalesByDateRange(DateTime startDate, DateTime endDate);
         List<Sale> GetSalesByDate(DateTime date);

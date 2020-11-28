@@ -17,6 +17,8 @@ namespace MarketManagementSystem.Infrastructure.Services
 
         private List<Product> _products;
         public List<Product> Products => _products;
+        private List<SaleItem> _saleItems;
+        public List<SaleItem> saleItems => _saleItems;
 
         #endregion
 
@@ -33,7 +35,7 @@ namespace MarketManagementSystem.Infrastructure.Services
                 Name = "iPhone Xs 256GB silver",
                 Price = 2099.99,
                 Category = Category.Telephone,
-                Quantity = 1,
+                Quantity = 10,
                 Code = "151515"
             });
 
@@ -42,7 +44,7 @@ namespace MarketManagementSystem.Infrastructure.Services
                 Name = "iPhone 11 256GB silver",
                 Price = 3000.99,
                 Category = Category.Telephone,
-                Quantity = 2,
+                Quantity = 5,
                 Code = "555555"
             });
                
@@ -65,36 +67,32 @@ namespace MarketManagementSystem.Infrastructure.Services
                 Code = "353535"
             });
 
+            _saleItems = new List<SaleItem>();
+
+            _saleItems.Add(new SaleItem
+            {
+                Number = 1,
+                Product = _products.Find(p => p.Code == "151515"),
+                Quantity = 1,
+            });
+
+
             _sales = new List<Sale>();
 
             _sales.Add(new Sale
             {
                 Number = 2345,
                 Amount = 2000.99,
-                Date = new DateTime(2020, 09, 09),
-                saleItems = new List<SaleItem>()
-                {
-                    new SaleItem
-                    {
-                            Number=1,
-                            Quantity=1,
-                            Product=new Product()
-                            {
-                                Name = "HP ProBook 450 G6 (6MQ72EA)",
-                                Price = 1569.99,
-                                Quantity = 5,
-                                Code = "252525",
-                                Category = Category.Noutbook
-                            }
-                    }
-                }
+                Date = DateTime.Today,
+                saleItems = _saleItems.FindAll(s => s.Number == 1)
             });
+           
 
         }
 
         #endregion
 
-        #region Methods of the product
+        #region Methods Of The Product
 
         public void AddProduct(Product product)
         {
@@ -110,10 +108,6 @@ namespace MarketManagementSystem.Infrastructure.Services
             var RemoveToItem = resultList.Find(p => p.Code == code);
             _products.Remove(RemoveToItem);
 
-        }
-        public List<Product> ShowAllList()
-        {
-            return _products;
         }
         public void GetProductsByCategory(Category category)
         {
@@ -155,14 +149,64 @@ namespace MarketManagementSystem.Infrastructure.Services
 
         #endregion
 
-        #region Methods of the sale
+        #region Methods Of The Sale
 
-        public void AddSale(Sale sale)
+        public void AddSale(int productCode,int productQuantity)
         {
-            _sales.Add(sale);
+            //List<SaleItem> items = new List<SaleItem>();
+
+            //double amount = 0;
+            //var product = _products.Where(p => p.Code == productCode).FirstOrDefault();
+
+            //var saleitem = new SaleItem();
+
+            //var code = productCode;
+
+            //if (productQuantity >= product.Quantity)
+            //{
+            //    saleitem.Count = productQuantity;
+
+            //}
         }
 
-     
+        public void RemoveSoldProduct(int saleNumber, string productCode, int productQuantity)
+        {
+            //var sale = GetSalesByNumber(saleNumber);
+
+            //double amount = 0;
+
+            //int index = -1;
+            //for (int i = 0; i <sale.saleItems.Count; i++)
+            //{
+            //    var saleItem = saleItems[i];
+
+            //    if (productCode == saleItem.Product.Code)
+            //    {
+            //        amount = saleItem.Product.Price * productQuantity;
+
+            //        if (saleItem.Quantity > productQuantity)
+            //        {
+            //            saleItem.Quantity -= productQuantity;
+            //        }
+
+            //        else if (saleItem.Quantity == productQuantity)
+            //        {
+            //            index = i;
+            //        }
+            //        else
+            //        {
+            //            Console.WriteLine("Yeterli sayda mehsul yoxdur");
+            //        }
+            //    }
+            //}
+
+                //      sale.Amount -= amount;
+                //  if (saleItemToDeleteIndex >= 0)
+                //{
+                //         sale.SaleItems.RemoveAt(saleItemToDeleteIndex);
+                // }
+                //   return amount;
+        }
         public void RemoveSalesByNumber(int number)
         {
             var resultList = _sales;
@@ -186,6 +230,11 @@ namespace MarketManagementSystem.Infrastructure.Services
         public List<Sale> GetSalesByNumber(int number)
         {
             return _sales.Where(s => s.Number == number).ToList();
+        }
+
+        public List<SaleItem> ShowSaleItem(int saleNumber)
+        {
+            return _sales.Find(s => s.Number == saleNumber).saleItems.ToList();
         }
 
         #endregion
