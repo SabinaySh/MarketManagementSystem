@@ -12,7 +12,7 @@ namespace MarketManagementSystem.Infrastructure.Interfaces
         #region Sale
 
         List<Sale> Sales { get; }
-        void AddSale(int productCode, int productQuantity);
+        void AddSale(string productCode, int productQuantity);
 
         void RemoveSoldProduct(int saleNumber,string productCode,int productQuantity);
         void RemoveSalesByNumber(int number);

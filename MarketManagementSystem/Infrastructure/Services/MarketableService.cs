@@ -81,9 +81,9 @@ namespace MarketManagementSystem.Infrastructure.Services
 
             _sales.Add(new Sale
             {
-                Number = 2345,
+                Number = 1,
                 Amount = 2000.99,
-                Date = DateTime.Today,
+                Date = new DateTime(2020,07,07),
                 saleItems = _saleItems.FindAll(s => s.Number == 1)
             });
            
@@ -151,61 +151,39 @@ namespace MarketManagementSystem.Infrastructure.Services
 
         #region Methods Of The Sale
 
-        public void AddSale(int productCode,int productQuantity)
+        public void AddSale(string productCode,int productQuantity)
         {
-            //List<SaleItem> items = new List<SaleItem>();
+            List<SaleItem> saleItems = new List<SaleItem>();
+            double amount = 0;
 
-            //double amount = 0;
-            //var product = _products.Where(p => p.Code == productCode).FirstOrDefault();
+            var product = _products.Where(p => p.Code == productCode).FirstOrDefault();
+            var Code = productCode;
 
-            //var saleitem = new SaleItem();
+            var saleItem = new SaleItem();
+            saleItem.Number = saleItems.Count + 1;
+            saleItem.Product = product;
+            saleItem.Quantity = productQuantity;
+            saleItems.Add(saleItem);
 
-            //var code = productCode;
+            amount += productQuantity * saleItem.Product.Price;
 
-            //if (productQuantity >= product.Quantity)
-            //{
-            //    saleitem.Count = productQuantity;
+            var saleNumber = _sales.Count + 1;
+            var saleDate = DateTime.Now;
 
-            //}
+            var sale = new Sale();
+
+            sale.Number = saleNumber;
+            sale.Amount = amount;
+            sale.Date = saleDate;
+            _sales.Add(sale);
+
+
         }
 
         public void RemoveSoldProduct(int saleNumber, string productCode, int productQuantity)
         {
-            //var sale = GetSalesByNumber(saleNumber);
+            
 
-            //double amount = 0;
-
-            //int index = -1;
-            //for (int i = 0; i <sale.saleItems.Count; i++)
-            //{
-            //    var saleItem = saleItems[i];
-
-            //    if (productCode == saleItem.Product.Code)
-            //    {
-            //        amount = saleItem.Product.Price * productQuantity;
-
-            //        if (saleItem.Quantity > productQuantity)
-            //        {
-            //            saleItem.Quantity -= productQuantity;
-            //        }
-
-            //        else if (saleItem.Quantity == productQuantity)
-            //        {
-            //            index = i;
-            //        }
-            //        else
-            //        {
-            //            Console.WriteLine("Yeterli sayda mehsul yoxdur");
-            //        }
-            //    }
-            //}
-
-                //      sale.Amount -= amount;
-                //  if (saleItemToDeleteIndex >= 0)
-                //{
-                //         sale.SaleItems.RemoveAt(saleItemToDeleteIndex);
-                // }
-                //   return amount;
         }
         public void RemoveSalesByNumber(int number)
         {
@@ -232,7 +210,7 @@ namespace MarketManagementSystem.Infrastructure.Services
             return _sales.Where(s => s.Number == number).ToList();
         }
 
-        public List<SaleItem> ShowSaleItem(int saleNumber)
+        public List<SaleItem> GetSaleItem(int saleNumber)
         {
             return _sales.Find(s => s.Number == saleNumber).saleItems.ToList();
         }
