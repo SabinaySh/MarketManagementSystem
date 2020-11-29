@@ -94,14 +94,20 @@ namespace MarketManagementSystem.Infrastructure.Services
 
         #region Methods Of The Product
 
+
+        //Add a new product
         public void AddProduct(Product product)
         {
             _products.Add(product);
         }
+
+        //Return of the product from sale
         public List<Product> CancelProductFromSale(string productCode)
         {
             return _products.FindAll(p => p.Code == productCode).ToList();
         }
+
+        //Delete of the product from sale
         public void RemoveProduct(string code)
         {
             var resultList = _products.ToList();
@@ -109,6 +115,8 @@ namespace MarketManagementSystem.Infrastructure.Services
             _products.Remove(RemoveToItem);
 
         }
+
+        //Show products by category
         public void GetProductsByCategory(Category category)
         {
             var list = _products.FindAll(p => p.Category == category);
@@ -124,10 +132,14 @@ namespace MarketManagementSystem.Infrastructure.Services
             }
 
         }
+
+        //Show products by price range
         public List<Product> GetProductsByRangePrice(double startPrice, double endPrice)
         {
             return _products.Where(s => s.Price >= startPrice && s.Price <= endPrice).ToList();
         }
+
+        //Search by product by name
         public List<Product> GetProductsSearchByName(string name)
         {
             var list = _products.FindAll(s => s.Name.Contains(name)).ToList();
@@ -151,6 +163,8 @@ namespace MarketManagementSystem.Infrastructure.Services
 
         #region Methods Of The Sale
 
+
+        //Add new sales
         public void AddSale(string productCode,int productQuantity)
         {
             List<SaleItem> saleItems = new List<SaleItem>();
@@ -180,11 +194,36 @@ namespace MarketManagementSystem.Infrastructure.Services
 
         }
 
-        public void RemoveSoldProduct(int saleNumber, string productCode, int productQuantity)
+        //Return of product on sale 
+        public double RemoveSoldProduct(int saleNumber, string productCode, int productQuantity)
         {
-            
+            double amount = 0;
 
+            var productList = _products.ToList();
+            var saleList = _sales.ToList();
+
+            var sale = saleList.Find(s => s.Number == saleNumber);
+
+            bool findProduct = productList.Exists(f => f.Code == productCode);
+
+            if (findProduct == true)
+            {
+
+                var List = productList.Find(p => p.Code == productCode);
+                if(sale.Amount>List.Price * productQuantity)
+                {
+                    sale.Amount -= List.Price * productQuantity;
+                }
+
+                else if(sale.Amount==List.Price * productQuantity)
+                {
+                    _sales.Remove(sale);
+                }
+            }
+            return amount;
         }
+
+        //Delete sale by number
         public void RemoveSalesByNumber(int number)
         {
             var resultList = _sales;
@@ -192,24 +231,31 @@ namespace MarketManagementSystem.Infrastructure.Services
             _sales.Remove(RemoveToItem);
         }
 
+        //Show sales by date range
         public List<Sale> GetSalesByDateRange(DateTime startDate, DateTime endDate)
         {
             return _sales.Where(s => s.Date >= startDate && s.Date <= endDate).ToList();
         }
 
+        //Show sales by amount range
         public List<Sale> GetSalesByRangeAmount(double startAmount, double endAmount)
         {
             return _sales.Where(s => s.Amount >= startAmount && s.Amount <= endAmount).ToList();
         }
+
+        //Show sales by date
         public List<Sale> GetSalesByDate(DateTime date)
         {
             return _sales.Where(s => s.Date == date).ToList();
         }
+
+        //Show sales by number
         public List<Sale> GetSalesByNumber(int number)
         {
             return _sales.Where(s => s.Number == number).ToList();
         }
 
+        //Show sale of the quantity by sales number
         public List<SaleItem> GetSaleItem(int saleNumber)
         {
             return _sales.Find(s => s.Number == saleNumber).saleItems.ToList();

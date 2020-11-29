@@ -596,7 +596,6 @@ namespace MarketManagementSystem
 
         #region Show Sale Methods
         
-        //satish siyahisina yeni satish elave edir.
         static void ShowAddSale()
         {
             Sale sale = new Sale();
@@ -633,7 +632,6 @@ namespace MarketManagementSystem
 
         }
 
-        //satisdan mehsulu legv edir.
         static void ShowRemoveSoldProduct()
         {
             Sale sale = new Sale();
@@ -654,30 +652,29 @@ namespace MarketManagementSystem
                 saleNumberInput = Console.ReadLine();
             }
 
-            Console.WriteLine("Geri qaytarmaq istədiyiniz satışın məhsul kodunu daxil edin: ");
+            Console.WriteLine("Geri qaytarmaq istədiyiniz məhsulun kodunu daxil edin: ");
             Console.WriteLine("");
 
             string productCodeInput = Console.ReadLine();
-            //_marketableService.RemoveSalesByNumber(productCodeInput);
+          
+            Console.WriteLine("Geri qaytarmaq istədiyiniz məhsulun sayını daxil edin: ");
+            string productQuantityInput = Console.ReadLine();
+            int productQuantity;
 
-            Console.WriteLine("Geri qaytarmaq istədiyiniz satışın sayını daxil edin: ");
-            string saleQuantityInput = Console.ReadLine();
-            int saleQuantity;
-
-            while(!int.TryParse(saleQuantityInput,out saleQuantity))
+            while(!int.TryParse(productQuantityInput, out productQuantity))
             {
                 Console.WriteLine("Rəqəm daxil etməlisiniz");
                 Console.WriteLine("");
-                saleQuantityInput = Console.ReadLine();
+                productQuantityInput = Console.ReadLine();
 
 
-                _marketableService.RemoveSoldProduct(saleNumber, productCodeInput, saleQuantity);
+                _marketableService.RemoveSoldProduct(saleNumber, productCodeInput, productQuantity);
             }
 
+            Console.WriteLine("");
             Console.WriteLine("------------ Satışdan məhsul cıxarıldı ------------");
 
         }
-
 
         static void ShowRemoveSale()
         {
@@ -871,7 +868,7 @@ namespace MarketManagementSystem
 
             foreach (var item in saleItem)
             {
-                Console.WriteLine("Sayı: " + item.Number + "Satış Nömrəsi: " + item.Number + "Məhsulun Adı: " /*+ item.SaleProduct.ProductName*/);
+                Console.WriteLine("Sayı: " + item.Quantity + "Satış Nömrəsi: " + item.Number + "Məhsulun Adı: " + item.Product.Name);
             }
         }
 
