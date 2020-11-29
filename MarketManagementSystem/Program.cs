@@ -706,7 +706,7 @@ namespace MarketManagementSystem
             var table = new ConsoleTable("No", "Nomrə", "Məbləq", "Məhsul sayı", "Tarix");
             int i = 1;
 
-            var itemCount = _marketableService.saleItems.Select(c => c.Quantity).FirstOrDefault();
+            int itemCount = _marketableService.saleItems.Select(c => c.Quantity).FirstOrDefault();
 
 
             foreach (var item in _marketableService.Sales)
