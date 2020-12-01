@@ -73,7 +73,7 @@ namespace MarketManagementSystem
                 #endregion
 
 
-            } while (selectInt <= 0 && selectInt>=3);
+            } while (selectInt == 0);
 
 
         }
@@ -156,7 +156,7 @@ namespace MarketManagementSystem
                 }
 
                 #endregion
-            } while (selectInt <= 0 && selectInt>=8);
+            } while (selectInt != 0 );
 
         }
         static void ShowSaleCategories()
@@ -243,7 +243,7 @@ namespace MarketManagementSystem
 
 
 
-            } while (selectInt <= 0 && selectInt>=9);
+            } while (selectInt != 0);
 
         }
 
@@ -307,7 +307,7 @@ namespace MarketManagementSystem
                         Console.WriteLine("---------------------------------------------------------");
                         break;
                 }
-            } while (selectInt <= 0 && selectInt>=4);
+            } while (selectInt == 0 );
 
 
             Console.WriteLine("");
