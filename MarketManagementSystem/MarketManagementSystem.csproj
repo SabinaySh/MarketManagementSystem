@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\Exceptions\" />
+    <Compile Remove="Infrastructure\Exceptions\**" />
+    <EmbeddedResource Remove="Infrastructure\Exceptions\**" />
+    <None Remove="Infrastructure\Exceptions\**" />
   </ItemGroup>
 
   <ItemGroup>
