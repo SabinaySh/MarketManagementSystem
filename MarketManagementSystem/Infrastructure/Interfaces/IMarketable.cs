@@ -29,7 +29,7 @@ namespace MarketManagementSystem.Infrastructure.Interfaces
 
         List<Product> Products { get; }
         void AddProduct(Product product);
-        List<Product> CancelProductFromSale(string productCode);
+        List<Product> EditProduct(string productCode);
         void RemoveProduct(string code);
         void GetProductsByCategory(Category category);
         List<Product> GetProductsByRangePrice(double startPrice, double endPrice);

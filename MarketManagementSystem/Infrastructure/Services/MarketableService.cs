@@ -102,7 +102,7 @@ namespace MarketManagementSystem.Infrastructure.Services
         }
 
         //Return of the product from sale
-        public List<Product> CancelProductFromSale(string productCode)
+        public List<Product> EditProduct(string productCode)
         {
             return _products.FindAll(p => p.Code == productCode).ToList();
         }
